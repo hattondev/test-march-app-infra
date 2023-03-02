@@ -1,0 +1,22 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: test-march-app-vs
+  labels:
+    app: test-march-app
+    version: 0.0.1
+    backstage.io/kubernetes-id: test-march-app
+spec:
+  gateways:
+  - istio-gateway/apps-gateway
+  hosts:
+  - test-march-app.apps.wwtlab.net
+  http:
+  - name: primary
+    route:
+    - destination:
+        host: test-march-app-svc
+        port:
+          number: 80
+      weight: 100
